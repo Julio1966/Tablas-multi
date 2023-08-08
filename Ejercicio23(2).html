@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no"/>
+
+<title>Mapa con Marcadores</title>
+
+<link rel="icon" href="spidey.png" type="image/x-icon">
+
+<style type="text/css">
+
+body{font-family:sans-serif; background-color: rgb(51, 38, 95); text-align: center;}
+
+#mapa{
+
+width:60%; height:700px;
+
+left:20%; right:20%;
+
+border: 1px solid #999;
+
+border-radius: 20px;
+
+}
+
+</style>
+
+<script type="text/javascript"
+
+src="http://maps.googleapis.com/maps/api/js?sensor=false">
+
+</script>
+
+<script type="text/javascript">
+
+google.maps.event.addDomListener(window, 'load', function() {
+
+var map = new google.maps.Map(document.getElementById('mapa'), {
+
+zoom: 12, center: new google.maps.LatLng(31.6830, -106.4250),
+
+mapTypeId: google.maps.MapTypeId.ROADMAP
+
+});
+
+//Datos del marcador normal
+
+var VentanaInfo1 = new google.maps.InfoWindow;
+
+var MouseEnMarcador1 = function() {
+
+var latlong = this.getPosition();
+
+VentanaInfo1.setContent('<h3>UTCJ</h3> latitud=' +
+
+latlong.lat() + ', longitud=' + latlong.lng()
+
++ '<br/><br/><a href="https://www.utcj.edu.mx/"> enlace al sitio de la UTCJ</a>');
+
+VentanaInfo1.open(map, this);
+
+};
+
+//Hacer que la ventana se cierre al salir del mapa
+
+google.maps.event.addListener(map, 'mouseout', function() {
+
+VentanaInfo1.close();
+
+});
+
+//Asignar coordenadas al marcador 1
+
+var Marcador1= new google.maps.Marker({
+
+map:map, position: new google.maps.LatLng(31.5992, -106.4078)
+
+});
+
+//Hacer que la ventana VentanaInfo1 aparezca al poner el mouse sobre el marcador1
+
+google.maps.event.addListener(Marcador1, 'mouseover', MouseEnMarcador1);
+
+//Datos del marcador personalizado
+
+var VentanaInfo2 = new google.maps.InfoWindow;
+
+var ClickEnMarca2 = function() {
+
+var marker = this;
+
+var latlng = marker.getPosition();
+
+VentanaInfo2.setContent('<h3>Plaza de la equis</h3><image src="equis.jpg">');
+
+VentanaInfo2.open(map, marker);
+
+};
+
+google.maps.event.addListener(map, 'mouseout', function() {
+
+VentanaInfo2.close(); //Cerrar la ventana al salir del mapa
+
+});
+
+//Insertamos la imagen del marcador personalizado
+
+var ImagenMarcador = new google.maps.MarkerImage("XWing.png");
+
+var marcadorP = new google.maps.Marker({
+
+map: map, position: new google.maps.LatLng(31.75, -106.44),
+
+icon: ImagenMarcador //Vincular la imagen personalizada con el marcador
+
+});
+
+//Activar la VentanaInfo2 al presionar el marcadorP
+
+google.maps.event.addListener(marcadorP, 'click', ClickEnMarca2);
+
+});
+
+</script>
+
+</head>
+
+<body>
+
+<h2>Ejemplo de mapa con marcadores.</h2>
+
+<div id="mapa"></div>
+
+</body>
+<br><a href="Practicas.html">Atrás</a>
+</html>

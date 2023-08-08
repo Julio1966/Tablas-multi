@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ejemplo de uso de la API de Facebook</title>
+    <script>
+        function obtenerDatosDeFacebook() {
+            var accessToken = 'TU_ACCESS_TOKEN';
+
+            fetch('https://graph.facebook.com/me?access_token=' + accessToken)
+                .then(response => response.json())
+                .then(data => {
+                    // Procesar los datos obtenidos de Facebook
+                    console.log(data);
+                })
+                .catch(error => {
+                    // Manejar errores de solicitud
+                    console.error(error);
+                });
+        }
+    </script>
+</head>
+<body>
+    <h1>Ejemplo de uso de la API de Facebook</h1>
+    <button onclick="obtenerDatosDeFacebook()">Obtener datos de Facebook</button>
+</body>
+</html>
